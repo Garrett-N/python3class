@@ -13,16 +13,22 @@ $var js: static/js/jquery-3.4.1.min.js static/js/bootstrap.min.js static/js/mate
 </head>
 <body>
     <div id="app">
-        <div class="navbar navbar-info navbar-fixed-top">
-            <div class="navbar-header">
-                <a class="navbar-brand">CodeWizzard</a>
-            </div>
+        <div class="navbar navbar-expand-md navbar-info fixed-top">
+            <a class="navbar-brand">Code Wizzard</a>
 
-            <ul class="nav navbar-nav">
-                <li><a class="waves-effect" href="/">Home Feed<div class="ripple-container"></div> </a> </li>
-                <li><a href="/discover">Discover<div class="ripple-container"></div> </a></li>
-                <li><a href="/profile">Profile<div class="ripple-container"></div> </a> </li>
-                <li><a href="/settings">Settings<div class="ripple-container"></div> </a> </li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/discover">Discover</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/settings">Settings</a>
+                </li>
             </ul>
 
             <div class="pull-right">
@@ -36,3 +42,4 @@ $var js: static/js/jquery-3.4.1.min.js static/js/bootstrap.min.js static/js/mate
         $for script in self.js.split():
             <script src="$script"></script>
 </body>
+</html>
