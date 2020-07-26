@@ -34,6 +34,7 @@ $(document).ready(function(){
                     alert("Could not log in.");
                 }else{
                     console.log("Logged in as ", res);
+                    window.location.href = "/";
                 }
             }
         })
