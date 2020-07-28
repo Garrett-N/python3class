@@ -1,5 +1,5 @@
 import web
-from Models import RegisterModel, LoginModel
+from Models import RegisterModel, LoginModel, Posts
 
 web.config.debug = False
 
@@ -9,7 +9,8 @@ urls = (
     '/postregistration', 'PostRegistration',
     '/login', 'Login',
     '/logout', 'Logout',
-    '/check-login', 'CheckLogin'
+    '/check-login', 'CheckLogin',
+    '/post-activity', 'PostActivity'
 )
 app = web.application(urls, globals())
 session = web.session.Session(app, web.session.DiskStore("sessions"), initializer={'user': None})
@@ -39,6 +40,15 @@ class PostRegistration:
         reg_model = RegisterModel.RegisterModel()
         reg_model.insert_user(post_data)
         return post_data.username
+
+class PostActivity:
+    def POST(self):
+        data = web.input()
+        data.username = session_data['user']['username']
+
+        post_model = Posts.Posts()
+        post_model.insert_post(data)
+        return "success"
 
 class CheckLogin:
     def POST(self):
