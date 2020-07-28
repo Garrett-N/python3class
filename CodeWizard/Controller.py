@@ -23,7 +23,11 @@ render = web.template.render("Views/Templates", base="MainLayout",
 
 class Home:
     def GET(self):
-        return render.Home()
+
+        post_model = Posts.Posts()
+        posts = post_model.get_all_posts()
+
+        return render.Home(posts)
 
 class Register:
     def GET(self):
