@@ -1,0 +1,3 @@
+sip
+pyqt5
+PyQt5-stubs
