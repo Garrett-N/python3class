@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QApplication, QHBoxLayout, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QApplication, QHBoxLayout, QVBoxLayout, QPushButton, QLabel
 
 
 class MainWindow(QWidget):
@@ -8,6 +8,7 @@ class MainWindow(QWidget):
         self.init_ui()
 
     def init_ui(self):
+        label = QLabel("Hi. I'm a label!!")
         okButton = QPushButton("OK")
         cancelButton = QPushButton("Cancel")
 
@@ -16,7 +17,12 @@ class MainWindow(QWidget):
         horizontal.addWidget(okButton)
         horizontal.addWidget(cancelButton)
 
-        self.setLayout(horizontal)
+        vertical = QVBoxLayout()
+        vertical.addWidget(label)
+        vertical.addStretch(1)
+        vertical.addLayout(horizontal)
+
+        self.setLayout(vertical)
 
         self.setWindowTitle("Horizontal Layout")
         self.show()
