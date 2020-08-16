@@ -47,8 +47,8 @@ class App(QFrame):
         self.Toolbar.setLayout(self.ToolbarLayout)
         self.ToolbarLayout.addWidget(self.addressbar)
 
-        # New tab button
         self.AddTabButton = QPushButton("+")
+        self.addressbar.returnPressed.connect(self.BrowseTo)
         self.AddTabButton.clicked.connect(self.AddTab)
 
         self.ToolbarLayout.addWidget(self.AddTabButton)
@@ -77,7 +77,7 @@ class App(QFrame):
 
         # create the web engine view
         self.tabs[i].content = QWebEngineView()
-        self.tabs[i].content.load(QUrl.fromUserInput("http://google.com "))
+        self.tabs[i].content.load(QUrl.fromUserInput("http://bing.com"))
 
         # add webview to tabs layout
         self.tabs[i].layout.addWidget(self.tabs[i].content)
@@ -101,6 +101,21 @@ class App(QFrame):
         tab_content = self.findChild(QWidget, tab_data)
         self.container.layout.setCurrentWidget(tab_content)
 
+    def BrowseTo(self):
+        text = self.addressbar.text()
+        i = self.tabbar.currentIndex()
+        tab = self.tabbar.tabData(i)
+        wv = self.findChild(QWidget, tab).content
+
+        if "http" not in text:
+            if "." not in text:
+                url = "https://www.bing.com/search?q=" + text
+            else:
+                url = "http://" + text
+        else:
+            url = text
+
+        wv.load(QUrl.fromUserInput(url))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
