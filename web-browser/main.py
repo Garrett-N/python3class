@@ -32,6 +32,7 @@ class App(QFrame):
         # Create Tabs
         self.tabbar = QTabBar(movable=True, tabsClosable=True)
         self.tabbar.tabCloseRequested.connect(self.CloseTab)
+        self.tabbar.tabBarClicked.connect(self.SwitchTab)
         self.tabbar.setCurrentIndex(0)
 
         # keep track of tabs
@@ -93,7 +94,12 @@ class App(QFrame):
         self.tabbar.setTabData(i, "tab" + str(i))
         self.tabbar.setCurrentIndex(i)
 
-        pass
+        self.tabCount += 1
+
+    def SwitchTab(self, i):
+        tab_data = self.tabbar.tabData(i)
+        tab_content = self.findChild(QWidget, tab_data)
+        self.container.layout.setCurrentWidget(tab_content)
 
 
 if __name__ == "__main__":
