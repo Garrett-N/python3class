@@ -101,6 +101,8 @@ class App(QFrame):
 
         self.tabs[i].content.titleChanged.connect(lambda: self.SetTabContent(i, "title"))
         self.tabs[i].content.iconChanged.connect(lambda: self.SetTabContent(i, "icon"))
+        self.tabs[i].content.urlChanged.connect(lambda: self.SetTabContent(i, "url"))
+
 
         # add widget to tabs layout
         self.tabs[i].layout.addWidget(self.tabs[i].content)
@@ -123,10 +125,13 @@ class App(QFrame):
         print(self.tabCount)
 
     def SwitchTab(self, i):
-        tab_data = self.tabbar.tabData(i)["object"]
-        print(tab_data)
-        tab_content = self.findChild(QWidget, tab_data)
-        self.container.layout.setCurrentWidget(tab_content)
+        if self.tabbar.tabData(i):
+            tab_data = self.tabbar.tabData(i)["object"]
+            print(tab_data)
+            tab_content = self.findChild(QWidget, tab_data)
+            self.container.layout.setCurrentWidget(tab_content)
+            new_url = tab_content.content.url().toString()
+            self.addressbar.setText(new_url)
 
     def BrowseTo(self):
         text = self.addressbar.text()
@@ -153,6 +158,13 @@ class App(QFrame):
 
         count = 0
         running = True
+
+        current_tab = self.tabbar.tabData(self.tabbar.currentIndex())["object"]
+        if current_tab == tab_name and type == "url":
+            new_url = self.findChild(QWidget, tab_name).content.url().toString()
+            self.addressbar.setText(new_url)
+            return False
+
         while running:
             tab_data_name = self.tabbar.tabData(count)
             if count >= 99:
