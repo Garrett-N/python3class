@@ -3,9 +3,10 @@ import os
 import json
 
 from PyQt5.QtWidgets import (QApplication, QWidget, QHBoxLayout, QVBoxLayout, QPushButton,
-                             QLabel, QLineEdit, QTabWidget, QTabBar, QFrame, QStackedLayout
+                             QLabel, QLineEdit, QTabWidget, QTabBar, QFrame, QStackedLayout,
+                            QShortcut, QKeySequenceEdit
                              )
-from PyQt5.QtGui import (QIcon, QWindow, QImage)
+from PyQt5.QtGui import (QIcon, QWindow, QImage, QKeySequence)
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import *
 
@@ -23,6 +24,7 @@ class App(QFrame):
         self.setWindowTitle("Web Browser")
         self.setBaseSize(1366, 768)
         self.setMinimumSize(1366, 768)
+        self.setWindowIcon(QIcon("logo.png"))
         self.CreateApp()
 
     def CreateApp(self):
@@ -36,6 +38,10 @@ class App(QFrame):
         self.tabbar.tabBarClicked.connect(self.SwitchTab)
         self.tabbar.setCurrentIndex(0)
         self.tabbar.setDrawBase(False)
+
+        # Create a shortcut key for a new tab
+        self.shortcutNewTab = QShortcut(QKeySequence("Ctrl+T"), self)
+        self.shortcutNewTab.activated.connect(self.AddTab)
 
         # keep track of tabs
         self.tabCount = 0
