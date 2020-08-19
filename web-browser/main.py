@@ -207,11 +207,15 @@ class App(QFrame):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    os.environ['QTWEBENGINE_REMOTE_DEGUGGING'] = "667"
+
     window = App()
 
     # read in qt stylesheet
     with open("style.css") as style:
         app.setStyleSheet(style.read())
+
+
 
     sys.exit(app.exec_())
 
