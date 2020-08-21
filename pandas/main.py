@@ -10,4 +10,13 @@ df = pd.DataFrame(raw_data, columns=['names', 'jan_ir', 'feb_ir', 'mar_ir'])
 
 df['total_ir'] = df['jan_ir'] + df['feb_ir'] + df['mar_ir']
 
-print(df)
+color = [(1, .4, .4), (1, .6, 1), (.5, .3 ,1), (.3, 1, .5), (.7, .7, .2)]
+
+plt.pie(df['total_ir'],
+        labels=df['names'],
+        colors=color,
+        autopct='%1.1f%%')
+
+plt.axis('equal')
+
+plt.show()
